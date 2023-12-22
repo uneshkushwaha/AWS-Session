@@ -1,0 +1,51 @@
+#Project 1: Deploying NODEJS application on the EC2 server
+STEPS:
+ 1. Cloned the gitub repo to the local machine from github
+ 2. Setup the following environment variables - (.env) file
+ DOMAIN= ""
+ PORT=3000
+ STATIC_DIR="./client"
+ // stripe API keys
+ PUBLISHABLE_KEY=""
+ SECRET_KEY="" 
+3. Initialise and start the project
+ npm install
+ npm run start 
+ hashtag#Errors ☠ 💀 ☠
+As I cloned the project into the windows Windows Subsystem for Linux (WSL) ,running npm run start was not detecting server.js file because Universal naming system(UNS) was not detecting the linux file path .So, this error was troubleshooted by this command:
+ : $ node /home/unesh/AWS-Session/server.js
+
+4. After the execution ,I proceed towards AWS.
+ hashtag#awscloud 
+1.login to aws with root user
+2. created IAM user to restrict every access and unnecessary interference by other users.
+ a. AdministratorAccess policy is attached .
+ b.security crenditals were created.
+3. Logged in AWS with IAM user .
+ hashtag#AWS Services
+i. Created a VPC named: nodejsVPC in the us-east-1a north virginia
+ii.Created subnet and routetables. later on subnet is associated with route tables
+iii. Created Internet Gateway and vpc is attached .Internet Gateway is also setup to the route table.
+
+iv. EC2 is Launced named: nodejsVPC
+ a. AMI : Ubuntu
+ b. Instance type: t2.micro
+ c. Key pair (login): NODEJS-login
+ d. In network setting : vpc and subnet are selected ,auto assign IP address is enabled, security remains as it is .
+ e. Configuration Storage also remains as it is and launched EC2.
+Once the EC2 starts running ,I went for connection of EC2.
+ hashtag#SSH client
+1.open the ubuntu terminal 
+2. locate the keypair location
+3. ssh -i keypair user@ec2_public id eg: ssh -i NODEJS-login ubuntu@34.207.131.200
+
+ hashtag#Errors☠ 💀 ☠ 
+ if ec2 is not properly connected with subnet, internet gateway, or route table.It leads to the error. So, ensure that EC2 is properly propagated.
+a. In my case, I have to switch on the VPN because some network is stopping to connect to the SSH.
+
+b.After the authentication connect to the EC2 instance private IP address. not public.
+c. running the ls command shows nothing 
+d. created env file, git clone,npm install,sudo apt update packages, and at last npm start
+e. Even after showing that the browser is running on port 3000 in Ubuntu, you can access the website for the first time.
+f. you have to go to the security and inside the inbound rule edit the security group TCP as 3000.
+g. https://lnkd.in/gJpqaMHu ec2 id :34.207.131.200
